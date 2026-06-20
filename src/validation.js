@@ -1,12 +1,26 @@
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DNI_REGEX   = /^\d{7,8}$/;
+const EMAIL_REGEX     = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DNI_REGEX       = /^\d{7,8}$/;
+const SOLICITANTE_MIN = 2;
+
+const TRANSICIONES = {
+  pendiente: ['activo', 'rechazado'],
+  activo:    ['devuelto'],
+  devuelto:  [],
+  rechazado: [],
+};
+
+function _validarSolicitante(solicitante, errors) {
+  if (!solicitante || !solicitante.trim()) {
+    errors.solicitante = 'El nombre es obligatorio.';
+  } else if (solicitante.trim().length < SOLICITANTE_MIN) {
+    errors.solicitante = 'El nombre debe tener al menos 2 caracteres.';
+  }
+}
 
 export function validateSolicitud(data) {
   const errors = {};
 
-  if (!data.solicitante || !data.solicitante.trim()) {
-    errors.solicitante = 'El nombre es obligatorio.';
-  }
+  _validarSolicitante(data.solicitante, errors);
 
   if (!data.email || !data.email.trim()) {
     errors.email = 'El email es obligatorio.';
@@ -32,13 +46,6 @@ export function validateSolicitud(data) {
 
   return { valid: Object.keys(errors).length === 0, errors };
 }
-
-const TRANSICIONES = {
-  pendiente: ['activo', 'rechazado'],
-  activo:    ['devuelto'],
-  devuelto:  [],
-  rechazado: [],
-};
 
 export function formatFecha(fecha) {
   const [y, m, d] = fecha.split('-');
