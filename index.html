@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Sistema de Biblioteca</h1>
+      <p>Gestión de préstamos de libros</p>
+    </header>
+
+    <nav>
+      <button class="tab-btn active" data-tab="solicitar">Solicitar préstamo</button>
+      <button class="tab-btn" data-tab="catalogo">Catálogo</button>
+      <button class="tab-btn" data-tab="panel">Panel bibliotecario</button>
+    </nav>
+
+    <main>
+      <section id="tab-solicitar" class="tab-content active">
+        <h2>Nueva solicitud de préstamo</h2>
+        <form id="form-solicitud">
+          <div class="field">
+            <label for="solicitante">Nombre completo *</label>
+            <input type="text" id="solicitante" placeholder="Ej: Juan Pérez" />
+            <span class="error" id="error-solicitante"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input type="email" id="email" placeholder="ejemplo@correo.com" />
+            <span class="error" id="error-email"></span>
+          </div>
+          <div class="field">
+            <label for="dni">DNI *</label>
+            <input type="text" id="dni" placeholder="Ej: 30456789" />
+            <span class="error" id="error-dni"></span>
+          </div>
+          <div class="field">
+            <label for="libro">Libro *</label>
+            <select id="libro">
+              <option value="">-- Seleccionar libro --</option>
+            </select>
+            <span class="error" id="error-libro"></span>
+          </div>
+          <div class="field">
+            <label for="fecha-retiro">Fecha de retiro *</label>
+            <input type="date" id="fecha-retiro" />
+            <span class="error" id="error-fecha-retiro"></span>
+          </div>
+          <button type="submit" class="btn-primary">Enviar solicitud</button>
+        </form>
+        <div id="msg-exito" class="msg-exito hidden">Solicitud enviada. El bibliotecario la revisará a la brevedad.</div>
+      </section>
+
+      <section id="tab-catalogo" class="tab-content">
+        <h2>Catálogo de libros</h2>
+        <div id="lista-catalogo"></div>
+      </section>
+
+      <section id="tab-panel" class="tab-content">
+        <h2>Solicitudes pendientes</h2>
+        <div id="lista-pendientes"></div>
+        <h2 style="margin-top:1.5rem">Préstamos activos</h2>
+        <div id="lista-activos"></div>
+        <h2 style="margin-top:1.5rem">Historial</h2>
+        <div id="lista-historial"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
